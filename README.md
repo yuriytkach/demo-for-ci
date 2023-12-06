@@ -1,6 +1,6 @@
 # demo-for-ci
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This project uses Quarkus, the Supersonic Subatomic Java Framework!!!
 
 ## Running the application in dev mode
 
