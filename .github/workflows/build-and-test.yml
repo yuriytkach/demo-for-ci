@@ -37,6 +37,9 @@ jobs:
     name: Unit Tests
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      checks: write
 
     steps:
       - name: Checkout
