@@ -104,6 +104,7 @@ jobs:
           echo "name=$IMAGE_ID:$VERSION" >> $GITHUB_OUTPUT
 
       - name: Login to AWS ECR
+        id: ecr
         uses: elgohr/ecr-login-action@v3
         with:
           access_key: ${{ secrets.AWS_ACCESS_KEY }}
