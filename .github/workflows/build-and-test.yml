@@ -90,6 +90,7 @@ jobs:
       - name: Push image
         id: push_image
         run: |
+          IMAGE_NAME=quarkus/demo-for-ci-jvm
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
