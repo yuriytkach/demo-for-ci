@@ -8,7 +8,6 @@ workflows:
   build-deploy:
     jobs:
       - gradle/test:
-          machine: true
           executor:
             name: gradle/default
             tag: "17.0"
