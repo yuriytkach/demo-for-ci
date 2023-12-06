@@ -111,7 +111,9 @@ jobs:
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@v5
         with:
-          name: ${{ steps.push_image.outputs.name }}
+          name: quarkus/demo-for-ci-jvm
           username: ${{ steps.ecr.outputs.username }}
           password: ${{ steps.ecr.outputs.password }}
           registry: ${{ steps.ecr.outputs.registry }}
+          dockerfile: src/main/docker/Dockerfile.jvm
+          tags: "ga-latest"
