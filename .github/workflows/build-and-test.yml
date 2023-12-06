@@ -100,20 +100,21 @@ jobs:
           docker push $IMAGE_ID:$VERSION
           echo "name=$IMAGE_ID:$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Login to AWS ECR
-        id: ecr
-        uses: elgohr/ecr-login-action@v3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          access_key: ${{ secrets.AWS_ACCESS_KEY }}
-          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Publish to Registry
-        uses: elgohr/Publish-Docker-Github-Action@v5
-        with:
-          name: quarkus/demo-for-ci-jvm
-          username: ${{ steps.ecr.outputs.username }}
-          password: ${{ steps.ecr.outputs.password }}
-          registry: ${{ steps.ecr.outputs.registry }}
-          dockerfile: src/main/docker/Dockerfile.jvm
-          tags: "ga-latest"
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push docker image to Amazon ECR
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: yuriy-private-registry
+          IMAGE_TAG: ga-latest
+        run: |
+          docker push 330065802977.dkr.ecr.eu-central-1.amazonaws.com/quarkus/demo-for-ci-jvm:ga-latest
