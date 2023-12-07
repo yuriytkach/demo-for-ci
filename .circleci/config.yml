@@ -13,4 +13,6 @@ jobs:
       - checkout
       - run: ./gradlew assemble -x test
       - run: ./gradlew test
+      - store_test_results:
+          path: build/test-results
       - run: ./gradlew build -x test
